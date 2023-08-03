@@ -1,0 +1,37 @@
+ Design a three server web infrastructure that hosts the website www.foobar.com, it must be secured, serve encrypted traffic, and be monitored
+
+[URL to design of a three server web infrastructure](https://www.flickr.com/photos/198859756@N05/53092186045/in/dateposted-public/)
+
+## Must have
+* 3 firewalls
+* 1 SSL certificate to serve www.foobar.com over HTTPS
+* 3 monitoring clients(data collector for Sumologic or other monitoring services)
+
+## Questions
+
+* Why did we add each additional element?
+    3 firewalls: enhance infrastructure security.
+    1 SSL Certificate: encrypt data in transit, provide secure connection between web server and client.
+    3 monitoring clients: gather data on infrastructure's performance, health and resource utilizaion
+* What are firewalls for?
+    prevent unauthorized access, potential attacks and protect sensitive data
+* Why is the traffic served over HTTPS?
+    To protect user data
+* What is monitoring used for?
+    track the performance, health and status of the infrastructure components.
+* How does the monitoring tool collect data?
+    through the monitoring clients installed on each server.
+
+* Explain what to do if you want to monitor your web server QPS?
+    configure the monitoring client to track incoming requests and record the total number of queries per second.
+
+## What are the issues with this infrastructure?
+
+* Why terminating SSL at the load balancer level is an issue?
+	Terminating SSL at the load balancer means that the load balancer decrypts the incoming HTTPS traffic before distributing it to the web servers. 
+
+* Why having only one MySQL server capable of accepting writes is an issue?
+	It creates a single point of failure. If this server fails, write operations will be unavailable, and the application might not function correctly.
+
+* Why having servers with all the same components (database, webserver and application server) might be a problem?
+	Having identical server components might be a problem if all servers experience the same vulnerabilities or issues simultaneously.

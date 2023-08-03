@@ -1,0 +1,23 @@
+# Add to previous design
+
+[URL to design of a three server web infrastructure](https://)
+
+## Must Add
+
+* 1 server
+
+* 1 load-balancer (HAproxy) configured as cluster with the other one
+
+* Split components (web server, application server, database) with their own server
+
+
+## Questions
+
+* Why did we add each additional element?
+Adding one server: The additional server allows for better horizontal scaling, distributing the workload among multiple servers, and ensuring that the infrastructure can handle increasing traffic and user demand.
+
+Adding one load-balancer configured as a cluster: The load balancer cluster improves high availability and fault tolerance. If one load balancer fails, the other one can seamlessly take over, preventing a single point of failure.
+
+Splitting components into separate servers: Separating components like web server, application server, and database onto their own servers helps optimize resource allocation and manage traffic more efficiently. This separation also enhances security by limiting access to specific components and makes it easier to scale individual parts of the infrastructure independently.
+
+

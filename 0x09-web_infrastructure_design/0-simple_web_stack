@@ -1,0 +1,38 @@
+# Design a one server web infrastructure that hosts the website www.foobar.com
+## start your explanation by having a user wanting to access your website
+
+[URL for 1 server web infrastructue](https://www.flickr.com/photos/198859756@N05/53091215012/in/dateposted-public/)
+
+## you must have
+* 1 server
+* 1 web server (Nginx)
+* 1 application server
+* 1 application file (code base)
+* 1 database (MySQL)
+* 1 domain name foobar.com configed with a www record that points to your server IP 8.8.8.8
+
+## Questions
+
+* What is a server?
+    A server is a computer without a monitor/keyboard/mouse or software system that provides services and resources to other computers or clients over a network.
+* What is the role of the domain name?
+    Human readable address to identify a specific location on the internet, like a website. It represents an IP address.
+* What type of DNS record www is in www.foobar.com?
+    A subdomain/CNAME pointing to the main domain/ A record that maps the "www" subdomain to the IP address of the server.
+* What is the role of the web server?
+    To handle HTTP requests from clients, and respond with requested web pages.
+* What is the role of the application server?
+    To execute application logic and process dynamic content.
+* What is the role of the database
+    To store and manage data in a structured manner.
+* What is the server using to communicate with the computer of the user requesting the website
+    HTTP/S protocols
+
+## What are the issues with this infrastructure?
+
+* SPOF?
+    We have one server handling all requests, if it fails, the entire system fails, the website becomes unavailable
+* Downtime when maintenace needed (like deploying new code web server needs to be restarted)?
+   The website will be unavailbale duting this period.
+* Cannot scale if too much incoming traffic?
+    If website traffic increases significantly, a single web/application server can't handle the load, leading to performance isssues, and system crash.
