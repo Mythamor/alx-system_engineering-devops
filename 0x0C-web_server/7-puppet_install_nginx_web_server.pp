@@ -1,7 +1,4 @@
-#!/usr/bin/env bash
-
 # Install nginx with Puppet
-
 # nginx_config.pp
 
 # Install Nginx package
