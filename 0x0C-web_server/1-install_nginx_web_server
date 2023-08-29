@@ -10,6 +10,5 @@
 sudo apt-get -y update
 sudo apt-get -y install nginx
 
-mkdir -p /var/www/html
-echo "Hello World!" > /var/www/html/index.html
-sudo service nginx start
+echo "Hello World!" > /var/www/html/index.nginx.html
+service nginx start
