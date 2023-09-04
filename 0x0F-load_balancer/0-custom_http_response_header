@@ -2,11 +2,18 @@
 # Set up server 2
 # Install nginx
 sudo apt-get -y update
-sudo apt-get install nginx
+sudo apt-get -y install nginx
 
 # Make file
-sudo mkdir -p /var/www/html
 echo "Hello World!" | sudo tee /var/www/html/index.html
-sudo sed -i "25i add_header X-Served-By \$hostname;" /etc/nginx/nginx.conf
-sudo service nginx reload
+
+header="X-Served-By"
+
+hostname=$(hostname)
+
+cat <<EOF | sudo tee  /etc/nginx/conf.d/custom-header.conf
+add_header $header $hostname always;
+EOF
+
+sudo nginx -t
 sudo service nginx restart
