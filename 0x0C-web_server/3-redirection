@@ -1,36 +1,12 @@
 #!/usr/bin/env bash
-# Configure your Nginx server to have a custom 301 redirection
-#       the string Ceci n'est pas une page
+# Configure Nginx server so that /redirect_me is redirecting to another page
+# redirection must be a “301 Moved Permanently”
 
+ADD301_REDIRECT="\\\tlocation /redirect_me {\n\t\t return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4;\n\t}\n"
 
 sudo apt-get -y update
 sudo apt-get -y install nginx
-
-echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Create a new configuration file for custom 404 page
-sudo tee /etc/nginx/sites-available/redirect_me <<EOF
-server {
-    listen 80;
-    server_name _;
-
-    location /redirect_me {
-        return 301 https://www.youtube.com/watch?v=QH2-TGUlwu4\n";
-    }
-
-    location = / {
-        root /var/www/html;
-    }
-
-}
-EOF
-
-# Create a symbolic link to enable the new configuration
-sudo ln -s /etc/nginx/sites-available/redirect_me /etc/nginx/sites-enabled/
-
-# Test Nginx configuration for syntax errors
-sudo nginx -t
-
-# Reload Nginx to apply changes
-sudo service nginx restart
-
+#sudo service nginx start
+echo "Hello World" | sudo tee /var/www/html/index.html
+sudo sed -i "30i $ADD301_REDIRECT" /etc/nginx/sites-available/default #add at line 30
+sudo service nginx start
