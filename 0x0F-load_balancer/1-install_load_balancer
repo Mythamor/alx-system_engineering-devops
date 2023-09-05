@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
-# Install and configure HAproxy on lb-o1 server
-
-CFG="\\\nlisten appname bind *:80\n\tmode http\n\tbalance roundrobin\n\toption httpclose\n\toption forwardfor\n\tserver 224424-web-01 52.91.125.119 check\n\tserver 224424-web-02 34.227.94.173 check\n"
+# Install and configure HAProxy load balancer
 
 sudo apt-get -y update
-sudo apt-get -y install haproxy=2.5*
+sudo apt-get install -y haproxy
 
-echo "$CFG" | sudo tee -a /etc/haproxy/haproxy.cfg
+# Enable load balancer
+sudo sed -i "8 a\ENABLED=1\n" /etc/default/haproxy
 
-echo "ENABLED=1" | sudo tee -a /etc/default/haproxy
+# Config load balancer with web servers
+sudo sed -i "$ a\ \nfrontend load_balancer\n\tbind\t0.0.0.0:80\n\tmode\thttp\n\tdefault_backend\tweb_servers\n\nbackend web_servers\n\tbalance\troundrobin\n\tserver\t224424-web-01\t52.91.125.119:80\n\tserver\t224424-web-02\t52.86.30.214:80" /etc/haproxy/haproxy.cfg
 
-sudo service haproxy restart
+sudo service haproxy start
