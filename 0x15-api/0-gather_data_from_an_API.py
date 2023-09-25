@@ -1,6 +1,8 @@
 #!/usr/bin/python3
-# Script that, using REST API, for a given employee ID, 
-# returns information about his/her TODO list progress
+"""
+Script that, using REST API, for a given employee ID,
+returns information about his/her TODO list progress
+"""
 
 import json
 import requests
@@ -8,7 +10,7 @@ from sys import argv
 
 
 if __name__ == "__main__":
-    
+
     uid = argv[1]
 
     base_url = "https://jsonplaceholder.typicode.com/"
@@ -32,7 +34,7 @@ if __name__ == "__main__":
             completed_tasks.append(task["title"])
         total_tasks += 1
 
-
-    print(f"Employee {user_name} is done with tasks {done_tasks}/{total_tasks}")
+    print(f"Employee {user_name} is done with tasks {done_tasks}\
+/{total_tasks}")
     for title in completed_tasks:
         print(f"\t{title}")
