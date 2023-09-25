@@ -10,13 +10,14 @@ import json
 import requests
 from sys import argv
 
+
 def write_to_csv(data, uid):
     """
     exports json data to csv
     """
     with open(f"{uid}.csv", "w") as file:
-        headers = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS",\
-                "TASK_TITLE"]
+        headers = ["USER_ID", "USERNAME", "TASK_COMPLETED_STATUS",
+                   "TASK_TITLE"]
         csv_writer = DictWriter(file, fieldnames=headers, quoting=QUOTE_ALL)
         for d in data:
             csv_writer.writerow(d)
